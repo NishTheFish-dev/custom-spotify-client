@@ -27,7 +27,7 @@ A web-based Spotify client that provides a personalized music experience with a 
 3. Create a `.env` file in the root directory with your Spotify credentials:
    ```
    VITE_SPOTIFY_CLIENT_ID=your_client_id
-   VITE_SPOTIFY_REDIRECT_URI=http://localhost:5173/callback
+   VITE_SPOTIFY_REDIRECT_URI=some_URI_here
    ```
 4. Start the development server:
    ```bash
