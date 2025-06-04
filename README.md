@@ -27,7 +27,7 @@ A web-based Spotify client that provides a personalized music experience with a 
 3. Create a `.env` file in the root directory with your Spotify credentials:
    ```
    VITE_SPOTIFY_CLIENT_ID=your_client_id
-   VITE_SPOTIFY_REDIRECT_URI=some_URI_here
+   VITE_SPOTIFY_CLIENT_SECRET=your_secret_id
    ```
 4. Start the development server:
    ```bash
@@ -38,8 +38,8 @@ A web-based Spotify client that provides a personalized music experience with a 
 
 1. Go to [Spotify Developer Dashboard](https://developer.spotify.com/dashboard)
 2. Create a new application
-3. Add `http://localhost:5173/callback` to the Redirect URIs
-4. Copy the Client ID to your `.env` file
+3. Add `some_URI_here` to the Redirect URIs
+4. Copy the Client ID and secret to your `.env` file
 
 ## Note
 
