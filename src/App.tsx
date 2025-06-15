@@ -59,7 +59,7 @@ function Layout() {
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </main>
-      <Player />
+      {showNavbar && <Player />}
     </div>
   );
 }

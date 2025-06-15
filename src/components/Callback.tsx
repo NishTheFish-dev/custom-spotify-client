@@ -4,7 +4,7 @@ import { useAuthStore } from '../store/authStore';
 import { SPOTIFY_CONFIG } from '../config/spotify';
 import { getPKCEVerifier, clearPKCEVerifier } from '../utils/pkce';
 
-const DEBUG_DELAY = 5000; // 5 seconds delay for debugging
+const DEBUG_DELAY = 2000; // 2 seconds delay for debugging
 
 export default function Callback() {
   const navigate = useNavigate();

@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { SPOTIFY_CONFIG } from '../config/spotify';
-import { generateCodeVerifier, generateCodeChallenge, storePKCEVerifier, clearPKCEVerifier } from '../utils/pkce';
+
 import { useAuthStore } from '../store/authStore';
+import { generateCodeVerifier, generateCodeChallenge, storePKCEVerifier, clearPKCEVerifier } from '../utils/pkce';
 
 export default function Login() {
   const navigate = useNavigate();
@@ -22,19 +23,18 @@ export default function Login() {
       setIsLoading(true);
       setError(null);
 
-      // Clear any existing PKCE data before starting new login
+      // Clear any existing PKCE data
       clearPKCEVerifier();
 
       // Generate PKCE values
       const verifier = generateCodeVerifier();
       const challenge = await generateCodeChallenge(verifier);
 
-      // Store verifier
+      // Persist verifier so we can use it in callback
       if (!storePKCEVerifier(verifier)) {
-        throw new Error('Failed to store authentication data');
+        throw new Error('Failed to store PKCE verifier');
       }
 
-      // Prepare authorization URL
       const params = new URLSearchParams({
         client_id: SPOTIFY_CONFIG.CLIENT_ID,
         response_type: 'code',
@@ -42,22 +42,20 @@ export default function Login() {
         code_challenge_method: 'S256',
         code_challenge: challenge,
         scope: SPOTIFY_CONFIG.SCOPES.join(' '),
-        show_dialog: 'true', // Force consent screen
+        show_dialog: 'true',
       });
 
-      // Redirect to Spotify
       window.location.href = `https://accounts.spotify.com/authorize?${params.toString()}`;
     } catch (error) {
       console.error('Login error:', error);
-      setError(error instanceof Error ? error.message : 'Failed to start login process');
-      clearPKCEVerifier();
+      setError('Failed to start login process');
     } finally {
       setIsLoading(false);
     }
   };
 
   return (
-    <div className="min-h-screen bg-gray-900 text-white flex items-center justify-center">
+    <div className="min-h-screen flex items-center justify-center bg-gray-900 text-white">
       <div className="max-w-md w-full mx-auto px-4 text-center">
         <div className="space-y-8">
           <div className="space-y-4">
